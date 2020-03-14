@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -9,7 +9,8 @@ import Card from '../components/Card'
 import CardList from '../components/CardList'
 
 import { RootState } from '../modules'
-import { FETCH_BOOKS } from '../modules/book'
+import { FETCH_BOOKS } from '../modules/books'
+import { SET_ORDER_BY, SET_PRINT_TYPE, SET_SEARCH_VALUE } from '../modules/search'
 
 const Container = styled.section`
   display: flex;
@@ -41,30 +42,58 @@ const IndexPage: React.FC = () => {
     dispatch({ type: FETCH_BOOKS })
   }, [dispatch])
 
-  const items = useSelector((state: RootState) => state.book.items)
+  const onChangePrintType = useCallback(
+    e => {
+      dispatch({ type: SET_PRINT_TYPE, payload: e.target.value })
+      dispatch({ type: FETCH_BOOKS })
+    },
+    [dispatch],
+  )
+  const onChangeSearchValue = useCallback(
+    searchValue => {
+      dispatch({ type: SET_SEARCH_VALUE, payload: searchValue })
+      dispatch({ type: FETCH_BOOKS })
+    },
+    [dispatch],
+  )
+  const onChangeOrderBy = useCallback(
+    e => {
+      dispatch({ type: SET_ORDER_BY, payload: e.target.value })
+      dispatch({ type: FETCH_BOOKS })
+    },
+    [dispatch],
+  )
+
+  const items = useSelector((state: RootState) => state.books.items || [])
+  const printType = useSelector((state: RootState) => state.search.printType)
+  const printTypeAll = useSelector((state: RootState) => state.search.printTypeAll)
 
   return (
     <Container>
       <Header />
-      <SearchBox />
+      <SearchBox
+        onChangePrintType={onChangePrintType}
+        onChangeSearchValue={onChangeSearchValue}
+        onChangeOrderBy={onChangeOrderBy}
+        printType={printType}
+        printTypeAll={printTypeAll}
+      />
       <CardList>
-        {items.map(({ id, volumeInfo }) => (
-          <Card
-            key={id}
-            id={id}
-            thumbnail={
-              volumeInfo && volumeInfo.imageLinks && volumeInfo.imageLinks.thumbnail
-                ? volumeInfo.imageLinks.thumbnail
-                : null
-            }
-            title={volumeInfo.title}
-            subtitle={volumeInfo.subtitle}
-            authors={volumeInfo.authors}
-            description={volumeInfo.description}
-            previewLink={volumeInfo.previewLink}
-            averageRating={volumeInfo.averageRating}
-          />
-        ))}
+        {items.map(
+          ({ id, volumeInfo: { imageLinks, title, subtitle, authors, description, previewLink, averageRating } }) => (
+            <Card
+              key={id}
+              id={id}
+              thumbnail={imageLinks && imageLinks.thumbnail ? imageLinks.thumbnail : null}
+              title={title}
+              subtitle={subtitle}
+              authors={authors}
+              description={description}
+              previewLink={previewLink}
+              averageRating={averageRating}
+            />
+          ),
+        )}
       </CardList>
       <Footer />
     </Container>

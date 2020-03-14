@@ -23,6 +23,15 @@ const Container = styled.select`
   }
 `
 
-const Select: React.FC = ({ children }) => <Container>{children}</Container>
+type SelectProps = {
+  defaultValue: string
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+}
+
+const Select: React.FC<SelectProps> = ({ children, defaultValue, onChange }) => (
+  <Container defaultValue={defaultValue} onChange={onChange}>
+    {children}
+  </Container>
+)
 
 export default Select

@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import InputGroup from './InputGroup'
 import InputSearch from './InputSearch'
-import Button from './Button'
-import Select from './Select'
+import InputPrintType from './InputPrintType'
+import InputSorting from './InputSorting'
 
 const Container = styled.div`
   display: flex;
@@ -13,25 +12,33 @@ const Container = styled.div`
   border-radius: 3px;
 `
 
-const SearchBox: React.FC = () => (
-  <Container className="search-box">
-    <InputGroup label="정렬">
-      <Select>
-        <option>관련도 높은순</option>
-        <option>최신순</option>
-      </Select>
-    </InputGroup>
+type SearchBoxProps = {
+  onChangePrintType: (e: React.MouseEvent<HTMLButtonElement>) => void
+  onChangeOrderBy: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  onChangeSearchValue: (searchValue: string) => void
+  printType: string[]
+  printTypeAll: boolean
+}
 
-    <InputGroup label="프린트 타입">
-      <Button>전체</Button>
-      <Button>책</Button>
-      <Button>잡지</Button>
-    </InputGroup>
-
-    <InputGroup label="검색">
-      <InputSearch />
-    </InputGroup>
-  </Container>
-)
+const SearchBox: React.FC<SearchBoxProps> = ({
+  onChangePrintType,
+  onChangeSearchValue,
+  onChangeOrderBy,
+  printType,
+  printTypeAll,
+}) => {
+  return (
+    <Container className="search-box">
+      <InputSorting label="정렬" onChange={onChangeOrderBy} />
+      <InputPrintType
+        label="프린트 타입"
+        selectedValues={printType}
+        checkAll={printTypeAll}
+        onClick={onChangePrintType}
+      />
+      <InputSearch label="검색" onClick={onChangeSearchValue} />
+    </Container>
+  )
+}
 
 export default SearchBox

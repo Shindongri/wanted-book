@@ -21,5 +21,5 @@ export type Book = {
 
 export type BookState = {
   totalItems: number
-  items: Book[]
+  items?: Book[]
 }

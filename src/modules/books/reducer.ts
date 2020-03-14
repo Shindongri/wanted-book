@@ -4,7 +4,7 @@ import { SET_BOOKS } from './actions'
 
 const initialState: BookState = {
   totalItems: 0,
-  items: []
+  items: [],
 }
 
 const book = createReducer<BookState, BookAction>(initialState, {

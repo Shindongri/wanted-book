@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 type ButtonProps = {
   primary?: boolean
+  value: string
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const Container = styled.button<{ primary?: boolean }>`
@@ -16,8 +18,8 @@ const Container = styled.button<{ primary?: boolean }>`
   cursor: pointer;
 `
 
-const Button: React.FC<ButtonProps> = ({ children, primary }) => (
-  <Container className="input" primary={primary}>
+const Button: React.FC<ButtonProps> = ({ children, primary, value, onClick }) => (
+  <Container className="input" primary={primary} value={value} onClick={onClick}>
     {children}
   </Container>
 )

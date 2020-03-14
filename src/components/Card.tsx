@@ -5,6 +5,7 @@ const Container = styled.a`
   width: 100%;
   text-decoration: none;
   color: #fff;
+  place-self: stretch stretch;
 `
 
 const Image = styled.img``
@@ -30,11 +31,22 @@ const ImageWrapper = styled.div`
 `
 
 const Title = styled.div`
+  margin-top: 4px;
+  font-weight: bold;
+  font-size: 14px;
   text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 120px;
 `
 
-const Author = styled.small`
+const Author = styled.div`
+  margin-top: 8px;
   text-overflow: ellipsis;
+  font-size: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 120px;
 `
 
 export type CardProps = {
@@ -61,7 +73,7 @@ const Card: React.FC<CardProps> = ({ thumbnail, title, authors, previewLink, ave
         </Rating>
       </ImageWrapper>
       <Title>{title}</Title>
-      <Author>{authors.join(',')}</Author>
+      <Author>{authors ? authors.join(',') : ''}</Author>
     </Container>
   )
 }
