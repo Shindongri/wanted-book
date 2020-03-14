@@ -1,10 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Container = styled.a``
-
-const Image = styled.img`
+const Container = styled.a`
+  width: 100%;
+  text-decoration: none;
+  color: #fff;
 `
+
+const Image = styled.img``
 
 const Rating = styled.span`
   font-size: 12px;
@@ -14,46 +17,51 @@ const Rating = styled.span`
   opacity: 0;
 `
 
-
 const ImageWrapper = styled.div`
   position: relative;
   &:hover {
-    ${ Image } {
+    ${Image} {
       opacity: 0.3;
     }
-    ${ Rating } {
+    ${Rating} {
       opacity: 1;
     }
   }
 `
 
-const Title = styled.div``
+const Title = styled.div`
+  text-overflow: ellipsis;
+`
 
-const Author = styled.small``
+const Author = styled.small`
+  text-overflow: ellipsis;
+`
 
 export type CardProps = {
-  id: string;
-  thumbnail: string | null;
-  title: string;
-  subtitle: string;
-  authors: string[];
-  previewLink: string;
-  description: string;
-  averageRating: number;
+  id: string
+  thumbnail: string | null
+  title: string
+  subtitle: string
+  authors: string[]
+  previewLink: string
+  description: string
+  averageRating: number
 }
 
 const Card: React.FC<CardProps> = ({ thumbnail, title, authors, previewLink, averageRating }) => {
   return (
-    <Container href={ previewLink }>
+    <Container href={previewLink}>
       <ImageWrapper>
-        <Image src={ thumbnail || '' } alt="" />
+        <Image src={thumbnail || ''} alt="" />
         <Rating>
-          <span role="img" aria-label="rating">★</span>{' '}
-          { averageRating } / 5
+          <span role="img" aria-label="rating">
+            ★
+          </span>{' '}
+          {averageRating} / 5
         </Rating>
       </ImageWrapper>
-      <Title>{ title }</Title>
-      <Author>{ authors.join(',') }</Author>
+      <Title>{title}</Title>
+      <Author>{authors.join(',')}</Author>
     </Container>
   )
 }

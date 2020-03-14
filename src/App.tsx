@@ -12,9 +12,9 @@ import rootSaga from './sagas'
 import IndexPage from './containers/IndexPage'
 
 const GlobalStyle = createGlobalStyle`
-  ${ reset }
+  ${reset}
   html, body {
-
+    background-color: #2a2d2e;
   }
 `
 
@@ -35,11 +35,11 @@ const store = createStore(rootReducer, enhancer)
 sagaMiddleware.run(rootSaga)
 
 const App = () => (
-  <Provider store={ store }>
+  <Provider store={store}>
     <MainContainer>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={ IndexPage } />
+          <Route exact path="/" component={IndexPage} />
         </Switch>
       </BrowserRouter>
       <GlobalStyle />

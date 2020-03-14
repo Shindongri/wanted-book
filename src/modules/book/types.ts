@@ -5,21 +5,21 @@ import * as actions from './actions'
 export type BookAction = ActionType<typeof actions>
 
 export type Book = {
-  id: string;
+  id: string
   volumeInfo: {
     imageLinks: {
-      smallThumbnail: string;
+      thumbnail: string
     }
-    title: string;
-    subtitle: string;
-    authors: string[];
-    previewLink: string;
-    description: string;
-    averageRating: number;
+    title: string
+    subtitle: string
+    authors: string[]
+    previewLink: string
+    description: string
+    averageRating: number
   }
 }
 
 export type BookState = {
-  totalItems: number;
-  items: Book[];
+  totalItems: number
+  items: Book[]
 }

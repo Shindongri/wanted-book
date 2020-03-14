@@ -3,25 +3,29 @@ import styled from 'styled-components'
 
 import InputGroup from './InputGroup'
 import InputSearch from './InputSearch'
-import Radio from "./Radio";
-import Checkbox from "./Checkbox";
+import Button from './Button'
+import Select from './Select'
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  background-color: #fff;
+  border-radius: 3px;
 `
 
 const SearchBox: React.FC = () => (
-  <Container>
+  <Container className="search-box">
     <InputGroup label="정렬">
-      <Radio label="관련도 높은 순" />
-      <Radio label="최근 순" />
+      <Select>
+        <option>관련도 높은순</option>
+        <option>최신순</option>
+      </Select>
     </InputGroup>
 
     <InputGroup label="프린트 타입">
-      <Checkbox label="모두" />
-      <Checkbox label="책" />
-      <Checkbox label="잡지" />
+      <Button>전체</Button>
+      <Button>책</Button>
+      <Button>잡지</Button>
     </InputGroup>
 
     <InputGroup label="검색">
