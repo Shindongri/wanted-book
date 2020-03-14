@@ -3,8 +3,10 @@ import styled from 'styled-components'
 
 const Container = styled.footer``
 
-const Footer: React.FC = () => {
-  return (<Container></Container>)
-}
+const Footer: React.FC = () => (
+  <Container>
+    footer
+  </Container>
+)
 
 export default Footer

@@ -12,7 +12,9 @@ const SearchButton = styled.button``
 const InputSearch: React.FC = () => (
   <Container>
     <Input />
-    <SearchButton />
+    <SearchButton>
+      검색
+    </SearchButton>
   </Container>
 )
 

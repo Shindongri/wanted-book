@@ -3,10 +3,18 @@ import styled from 'styled-components'
 
 const Container = styled.div``
 
-const InputGroup: React.FC = () => {
-  return (
-    <Container></Container>
-  )
+type InputGroupProps = {
+  label: string;
+  children: React.ReactElement | React.ReactElement[];
 }
+
+const InputGroup: React.FC<InputGroupProps> = ({ label, children }) => (
+  <Container>
+    <small>{ label }</small>
+    <div>
+      { children }
+    </div>
+  </Container>
+)
 
 export default InputGroup

@@ -5,7 +5,9 @@ const Container = styled.header``
 
 const Header: React.FC = () => {
   return (
-    <Container></Container>
+    <Container>
+      Wanted Book
+    </Container>
   )
 }
 

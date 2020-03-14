@@ -3,8 +3,15 @@ import styled from "styled-components"
 
 const Input = styled.input``
 
-const Checkbox: React.FC = () => (
-  <Input type="checkbox" />
+type CheckboxProps = {
+  label: string;
+}
+
+const Checkbox: React.FC<CheckboxProps> = ({ label }) => (
+  <label>
+    <Input type="checkbox" />
+    { label }
+  </label>
 )
 
 export default Checkbox
