@@ -1,12 +1,15 @@
 import { SearchAction, Search } from './types'
 import { createReducer } from 'typesafe-actions'
-import { SET_PRINT_TYPE, SET_ORDER_BY, SET_SEARCH_VALUE } from './actions'
+import { SET_PRINT_TYPE, SET_ORDER_BY, SET_SEARCH_VALUE, SET_START_INDEX, SET_CURRENT_INDEX } from './actions'
 
 const initialState: Search = {
   printTypeAll: true,
   printType: ['books', 'magazines'],
   orderBy: 'relevance',
   searchValue: '',
+  startIndex: 0,
+  currentIndex: 0,
+  maxResults: 40,
 }
 
 const book = createReducer<Search, SearchAction>(initialState, {
@@ -39,6 +42,8 @@ const book = createReducer<Search, SearchAction>(initialState, {
   },
   [SET_ORDER_BY]: (state, action) => ({ ...state, orderBy: action.payload }),
   [SET_SEARCH_VALUE]: (state, action) => ({ ...state, searchValue: action.payload }),
+  [SET_START_INDEX]: (state, action) => ({ ...state, startIndex: action.payload }),
+  [SET_CURRENT_INDEX]: (state, action) => ({ ...state, currentIndex: action.payload }),
 })
 
 export default book

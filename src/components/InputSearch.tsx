@@ -40,7 +40,7 @@ const InputSearch: React.FC<InputSearch> = ({ label, onClick }) => {
   const submit = useCallback(() => {
     onClick(searchValue)
     reset()
-  }, [searchValue])
+  }, [searchValue, onClick, reset])
 
   return (
     <InputGroup label={label}>

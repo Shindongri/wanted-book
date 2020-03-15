@@ -9,4 +9,7 @@ export type Search = {
   printType: string[]
   orderBy: string
   searchValue: string
+  startIndex: number
+  currentIndex: number
+  maxResults: number
 }

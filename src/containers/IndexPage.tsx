@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Header from '../components/Header'
 import SearchBox from '../components/SearchBox'
@@ -8,9 +8,12 @@ import Footer from '../components/Footer'
 import Card from '../components/Card'
 import CardList from '../components/CardList'
 
+import useSearch from '../hooks/useSearch'
 import { RootState } from '../modules'
+
+import IntersectionObserver from '../io'
+import { SET_CURRENT_INDEX, SET_START_INDEX } from '../modules/search'
 import { FETCH_BOOKS } from '../modules/books'
-import { SET_ORDER_BY, SET_PRINT_TYPE, SET_SEARCH_VALUE } from '../modules/search'
 
 const Container = styled.section`
   display: flex;
@@ -38,35 +41,38 @@ const Container = styled.section`
 const IndexPage: React.FC = () => {
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch({ type: FETCH_BOOKS })
-  }, [dispatch])
-
-  const onChangePrintType = useCallback(
-    e => {
-      dispatch({ type: SET_PRINT_TYPE, payload: e.target.value })
-      dispatch({ type: FETCH_BOOKS })
+  const cardRef = useRef<HTMLAnchorElement>(null)
+  const io = IntersectionObserver(
+    () => {
+      setTimeout(() => {
+        dispatch({ type: SET_CURRENT_INDEX, payload: currentIndex + 1 })
+        dispatch({ type: SET_START_INDEX, payload: (currentIndex + 1) * maxResults })
+      }, 150)
     },
-    [dispatch],
-  )
-  const onChangeSearchValue = useCallback(
-    searchValue => {
-      dispatch({ type: SET_SEARCH_VALUE, payload: searchValue })
-      dispatch({ type: FETCH_BOOKS })
+    {
+      threshold: 0,
+      rootMargin: '-100px',
     },
-    [dispatch],
-  )
-  const onChangeOrderBy = useCallback(
-    e => {
-      dispatch({ type: SET_ORDER_BY, payload: e.target.value })
-      dispatch({ type: FETCH_BOOKS })
-    },
-    [dispatch],
   )
 
   const items = useSelector((state: RootState) => state.books.items || [])
-  const printType = useSelector((state: RootState) => state.search.printType)
-  const printTypeAll = useSelector((state: RootState) => state.search.printTypeAll)
+  const { printType, printTypeAll, currentIndex, maxResults } = useSelector((state: RootState) => state.search)
+
+  useEffect(() => {
+    if (cardRef.current) {
+      io.observe(cardRef.current)
+    }
+
+    return () => {
+      io.disconnect()
+    }
+  })
+
+  useEffect(() => {
+    dispatch({ type: FETCH_BOOKS, payload: { more: true } })
+  }, [currentIndex, dispatch])
+
+  const [onChangePrintType, onChangeSearchValue, onChangeOrderBy] = useSearch()
 
   return (
     <Container>
@@ -82,6 +88,7 @@ const IndexPage: React.FC = () => {
         {items.map(
           ({ id, volumeInfo: { imageLinks, title, subtitle, authors, description, previewLink, averageRating } }) => (
             <Card
+              ref={cardRef}
               key={id}
               id={id}
               thumbnail={imageLinks && imageLinks.thumbnail ? imageLinks.thumbnail : null}

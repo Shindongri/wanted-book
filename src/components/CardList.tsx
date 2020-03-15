@@ -6,8 +6,8 @@ import { CardProps } from './Card'
 const Container = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-column-gap: 24px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 32px;
   grid-row-gap: 36px;
 `
 

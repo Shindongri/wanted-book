@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import styled from 'styled-components'
 
 const Container = styled.a`
@@ -58,24 +58,23 @@ export type CardProps = {
   previewLink: string
   description: string
   averageRating: number
+  ref: React.Ref<HTMLAnchorElement>
 }
 
-const Card: React.FC<CardProps> = ({ thumbnail, title, authors, previewLink, averageRating }) => {
-  return (
-    <Container href={previewLink}>
-      <ImageWrapper>
-        <Image src={thumbnail || ''} alt="" />
-        <Rating>
-          <span role="img" aria-label="rating">
-            ★
-          </span>{' '}
-          {averageRating} / 5
-        </Rating>
-      </ImageWrapper>
-      <Title>{title}</Title>
-      <Author>{authors ? authors.join(',') : ''}</Author>
-    </Container>
-  )
-}
+const Card: React.FC<CardProps> = forwardRef(({ thumbnail, title, authors, previewLink, averageRating }, ref) => (
+  <Container ref={ref} href={previewLink}>
+    <ImageWrapper>
+      <Image src={thumbnail || ''} alt="" />
+      <Rating>
+        <span role="img" aria-label="rating">
+          ★
+        </span>{' '}
+        {averageRating} / 5
+      </Rating>
+    </ImageWrapper>
+    <Title>{title}</Title>
+    <Author>{authors ? authors.join(',') : ''}</Author>
+  </Container>
+))
 
 export default Card
