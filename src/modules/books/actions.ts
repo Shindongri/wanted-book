@@ -5,8 +5,10 @@ import { Book } from './types'
 export const FETCH_BOOKS = 'books/FETCH_BOOKS'
 export const SET_BOOKS = 'books/SET_BOOKS'
 export const SET_TOTAL_ITEMS = 'books/SET_TOTAL_ITEMS'
+export const SET_LOADING = 'books/SET_LOADING'
 
 /* 액션 생성 함수 */
 export const fetchBooks = createAction(FETCH_BOOKS)<{ more: boolean }>()
 export const setBook = createAction(SET_BOOKS)<Book[]>()
 export const setTotalItems = createAction(SET_TOTAL_ITEMS)<number>()
+export const setLoading = createAction(SET_LOADING)<boolean>()

@@ -20,6 +20,7 @@ export type Book = {
 }
 
 export type BookState = {
+  loading: boolean
   totalItems: number
   items?: Book[]
 }

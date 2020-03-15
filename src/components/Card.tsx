@@ -6,9 +6,12 @@ const Container = styled.a`
   text-decoration: none;
   color: #fff;
   place-self: stretch stretch;
+  display: grid;
 `
 
-const Image = styled.img``
+const Image = styled.img`
+  object-fit: contain;
+`
 
 const Rating = styled.span`
   font-size: 12px;
@@ -20,6 +23,10 @@ const Rating = styled.span`
 
 const ImageWrapper = styled.div`
   position: relative;
+  place-self: stretch stretch;
+  display: flex;
+  justify-content: center;
+
   &:hover {
     ${Image} {
       opacity: 0.3;
@@ -31,7 +38,7 @@ const ImageWrapper = styled.div`
 `
 
 const Title = styled.div`
-  margin-top: 4px;
+  margin: 8px auto 0;
   font-weight: bold;
   font-size: 14px;
   text-overflow: ellipsis;
@@ -41,7 +48,7 @@ const Title = styled.div`
 `
 
 const Author = styled.div`
-  margin-top: 8px;
+  margin: 8px auto 0;
   text-overflow: ellipsis;
   font-size: 10px;
   overflow: hidden;

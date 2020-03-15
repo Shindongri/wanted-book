@@ -1,21 +1,18 @@
 import { call, put, all, takeEvery, select } from 'redux-saga/effects'
 import axios from 'axios'
 
-import { setBook, setTotalItems, FETCH_BOOKS } from '../modules/books'
+import { setBook, setTotalItems, FETCH_BOOKS, setLoading } from '../modules/books'
 
 const fetchBooks = function*({ payload: { more } }: any) {
-  const searchValue = yield select(state => state.search.searchValue)
-  const printTypes = yield select(state => state.search.printType)
-  const printTypeAll = yield select(state => state.search.printTypeAll)
-  const orderBy = yield select(state => state.search.orderBy)
-  const startIndex = yield select(state => state.search.startIndex)
-  const maxResults = yield select(state => state.search.maxResults)
+  const { searchValue, printTypes, printTypeAll, orderBy, startIndex, maxResults } = yield select(state => state.search)
 
   const prevItems = yield select(state => state.books.items)
 
   const q = searchValue === '' ? 'intitle:' : `intitle:${searchValue}+inauthor:${searchValue}`
 
   const printType = printTypeAll ? 'all' : printTypes[0]
+
+  yield put(setLoading(true))
 
   try {
     const {
@@ -33,6 +30,8 @@ const fetchBooks = function*({ payload: { more } }: any) {
     }
   } catch (e) {
     console.error(e)
+  } finally {
+    yield put(setLoading(false))
   }
 }
 

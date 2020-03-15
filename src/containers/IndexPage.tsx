@@ -7,6 +7,7 @@ import SearchBox from '../components/SearchBox'
 import Footer from '../components/Footer'
 import Card from '../components/Card'
 import CardList from '../components/CardList'
+import Loading from '../components/Loading'
 
 import useSearch from '../hooks/useSearch'
 import { RootState } from '../modules'
@@ -47,7 +48,7 @@ const IndexPage: React.FC = () => {
       setTimeout(() => {
         dispatch({ type: SET_CURRENT_INDEX, payload: currentIndex + 1 })
         dispatch({ type: SET_START_INDEX, payload: (currentIndex + 1) * maxResults })
-      }, 150)
+      }, 200)
     },
     {
       threshold: 0,
@@ -55,7 +56,7 @@ const IndexPage: React.FC = () => {
     },
   )
 
-  const items = useSelector((state: RootState) => state.books.items || [])
+  const { items = [], loading } = useSelector((state: RootState) => state.books)
   const { printType, printTypeAll, currentIndex, maxResults } = useSelector((state: RootState) => state.search)
 
   useEffect(() => {
@@ -77,6 +78,7 @@ const IndexPage: React.FC = () => {
   return (
     <Container>
       <Header />
+
       <SearchBox
         onChangePrintType={onChangePrintType}
         onChangeSearchValue={onChangeSearchValue}
@@ -84,7 +86,7 @@ const IndexPage: React.FC = () => {
         printType={printType}
         printTypeAll={printTypeAll}
       />
-      <CardList>
+      <CardList loading={loading}>
         {items.map(
           ({ id, volumeInfo: { imageLinks, title, subtitle, authors, description, previewLink, averageRating } }) => (
             <Card
@@ -102,9 +104,10 @@ const IndexPage: React.FC = () => {
           ),
         )}
       </CardList>
+      <Loading visible={loading} />
       <Footer />
     </Container>
   )
 }
 
-export default IndexPage
+export default React.memo(IndexPage)
