@@ -1,44 +1,100 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# WANTED-BOOKS
 
-## Available Scripts
+[![typescript](https://img.shields.io/badge/typescript-v.3.7.2-blue)](https://www.typescriptlang.org/)
+[![react](https://img.shields.io/badge/react-v.16.13.0-blue)](https://reactjs.org/)
+[![redux](https://img.shields.io/badge/redux-v.4.0.5-purple)](https://redux.js.org/)
+[![redux-saga](https://img.shields.io/badge/redux--saga-v.1.1.3-brightgreen)](https://redux-saga.js.org/)
 
-In the project directory, you can run:
+## Prerequisites
 
-### `yarn start`
+- [Node.js](https://nodejs.org/ko/)
+- [Yarn](https://yarnpkg.com/)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### 1. Clone the project
 
-### `yarn test`
+```bash
+$ git clone https://github.com/Shindongri/wanted-book.git
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Install Packages
 
-### `yarn build`
+```bash
+$ yarn (install)
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. Start Application
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```bash
+$ yarn start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 구조 설계
 
-### `yarn eject`
+- 해당 어플리케이션은 기본적으로 [create-react-app](https://create-react-app.dev/) 으로 구성했습니다.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+src
+├── components
+│   ├── Button.tsx
+│   ├── Card.tsx
+│   ├── CardList.tsx
+│   ├── Footer.tsx
+│   ├── Header.tsx
+│   ├── InputGroup.tsx
+│   ├── InputPrintType.tsx
+│   ├── InputSearch.tsx
+│   ├── InputSorting.tsx
+│   ├── Loading.tsx
+│   ├── SearchBox.tsx
+│   └── Select.tsx
+├── containers
+│   └── IndexPage.tsx
+├── hooks
+│   ├── useSearch.ts
+│   └── useInput.ts
+├── modules
+│   ├── index.ts
+│   ├── books
+│   │   ├── actions.ts
+│   │   ├── index.ts
+│   │   ├── reducer.ts
+│   │   └── types.ts
+│   └── search
+│       ├── actions.ts
+│       ├── index.ts
+│       ├── reducer.ts
+│       └── types.ts
+├── sagas
+│   ├── books.ts
+│   └── index.ts
+├── index.tsx
+└── App.tsx
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1.  `components`
+    : Presentational Components
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2.  `containers`
+    : Container Components
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3.  `hooks`
+    : Custom made hooks
 
-## Learn More
+4.  `modules`
+    : Redux Actions & Action Types & Reducers
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5.  `sagas`
+    : Redux Middleware ( Side Effects )
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Main Dependencies
+
+- **react |** https://reactjs.org/
+
+- **react-redux |** https://redux.js.org/
+  : A Predictable State Container for JS Apps
+- **redux-saga |** https://redux-saga.js.org/
+  : a library that aims to make application side effects
+- **styled-components |** https://styled-components.com/
+  : Visual primitives for the component age.
