@@ -5,7 +5,7 @@
 [![redux](https://img.shields.io/badge/redux-v.4.0.5-purple)](https://redux.js.org/)
 [![redux-saga](https://img.shields.io/badge/redux--saga-v.1.1.3-brightgreen)](https://redux-saga.js.org/)
 
-## Netlify
+## URL
 
 https://wanted-book.netlify.com/
 
